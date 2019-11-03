@@ -10,10 +10,12 @@ namespace DuplicateImages.Helper
     {
         public static string GetImageBase64(Bitmap image)
         {
-            MemoryStream ms = new MemoryStream();
-            image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-            String firstBitmap = Convert.ToBase64String(ms.ToArray());
-            return firstBitmap;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                String firstBitmap = Convert.ToBase64String(ms.ToArray());
+                return firstBitmap;
+            }
         }
 
         public static Bitmap ConvertToBitmap(string fileName)
